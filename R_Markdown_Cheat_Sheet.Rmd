@@ -1,0 +1,255 @@
+---
+title: "R Markdown Cheat Sheet"
+author: "Maria del Carmen Martínez Caro"
+date: '2024'
+output:
+  html_document:
+    number_sections: true
+    theme: cerulean
+    highlight: tango
+  pdf_document: default
+---
+
+# Estructura básica
+
+El archivo R Markdown contiene tres tipos de contenido:
+
+- Encabezado YAML rodeado por **- - -**
+- Fragmentos de código de R rodeados por **```**
+- Texto mezclado con formato de texto simple
+
+## Encabezado YAML
+
+### HTML
+
+**Tabla de contenidos**
+
+De esta forma se agrega una tabla de contenido, donde se puede especificar la profundidad de los encabezados (número de apartados que se quieren mostrar de los que hay en el documento con `toc_depth`).
+```
+title: "Habits"
+output:
+  html_document:
+    toc: true
+    toc_depth: 6
+```
+
+**Tabla de contenido flotante**
+
+Opción para flotar la tabla de contenido a la izquierda del contenido del documento principal. La tabla de contenido flotante siempre estará visible incluso cuando se desplace el documento.
+```
+title: "Habits"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+```
+
+**Numeración de secciones**
+
+Se agrega numeración de sección a los encabezados usando la opción `number_sections`
+```
+title: "Habits"
+output:
+  html_document:
+    toc: true
+    number_sections: true
+```
+
+**Apariencia y estilo**
+
+Opciones para la apariencia de los documentos HTML.
+- Con `theme` especificamos el tema de Bootstrap a utilizar. `default`, `bootstrap`, `cerulean`, `cosmo`, `darkly`, `flatly`, `journal`, `lumen`, `paper`, `readable`, `sandstone`, `simplex`, `spacelab`, `united` y `yeti`. Para ninguna apariencia`null`.
+- Con `highlight` se especifica el estilo de resaltado de sintaxis. `default`, `tango`, `pygments`, `kate`, `mono`, `chrome`, `espresso`, `zenburn`, `haddock`, `breezeda` y `rk`, `textmate`. Para ningún estilo `null`.
+
+```
+title: "Habits"
+output:
+  html_document:
+    theme: united
+    highlight: tango
+```
+### PDF
+
+**Tabla de contenidos**
+
+Agregar tabla de contenido. Y agregar numeración de sección a los encabezados usando la opción `number_sections`.
+```
+title: "Habits"
+output:
+  pdf_document:
+    toc: true
+    toc_depth: 2
+    number_sections: true
+```
+
+**Sintaxis**
+
+La opción especifica el estilo de resaltado de sintaxis.
+
+```
+title: "Habits"
+output:
+  pdf_document:
+    highlight: tango
+```
+
+## Fragmentos código
+
+- `{r etiqueta}`: es la etiqueta que asignas al bloque de código. Puedes elegir cualquier nombre significativo para identificar el bloque.
+  Una vez que has etiquetado un bloque de código, puedes hacer referencia a él en otras partes del documento utilizando la misma etiqueta. Existen varias opciones que poder utilizar en el chunk:
+  - `echo`: ocultar o mostrar el bloque de código en un chunk de R Markdown
+  - `eval`: controla si el código se ejecuta o no. Si `eval=FALSE`, el código se muestra pero no se ejecuta.
+  - `include`: controla si el código y los resultados se incluyen en el documento de salida. Si `include=FALSE`, el código se ejecuta pero no se muestra en el documento final.
+  - `message`: controla si los mensajes generados por la ejecución del código se muestran en el documento de salida. Si `message=FALSE`, los mensajes se suprimen.
+  - `warning`: controla si las advertencias generadas por la ejecución del código se muestran en el documento de salida. Si `warning=FALSE`, las advertencias se suprimen.
+  - `error`: controla si los errores generados por la ejecución del código se muestran en el documento de salida. Si `error=FALSE`, los errores se suprimen.
+  - `fig.cap = "..."`: Añade un título a los resultados gráficos.
+  - `results`: permite controlar cómo se presentan los resultados generados por el código del documento de salida. Hay tres opciones:
+    - `'markup'`: solo se incluyen los resultados formateados en el documento final. Esto significa que si tu código R genera gráficos o tablas, estos se mostrarán en el documento final de la manera en que están formateados por defecto en R.
+    - `'hide'`: los resultados no se muestran en el documento final.
+    - `'asis'`: incluye los resultados sin procesar en el documento de salida. Esto significa que el resultado será tal como lo produce R, sin ningún formato adicional aplicado por R Markdown.
+    Esto es útil si deseas mostrar resultados que no son gráficos o tablas, como texto sin formato o resultados numéricos.
+
+## Formato texto simple
+
+### Encabezados
+```
+# Título Principal
+## Subtítulo
+### Subsubtítulo
+```
+### Texto
+```
+*Texto en cursiva*
+**Texto en negrita**
+`Texto en código`
+```
+
+### Listas
+
+#### Lista no ordenada
+```
+- Elemento 1
+- Elemento 2
+  - Subelemento 2.1
+  - Subelemento 2.2
+```
+#### Lista ordenada
+```
+1. Elemento 1
+2. Elemento 2
+3. Elemento 3
+```
+### Enlaces e imágenes
+#### Enlace
+```
+[Texto del enlace](url_del_enlace)
+
+<url_del_enlace>
+```
+
+#### Imagen
+```
+![Texto alternativo](url_de_la_imagen)
+```
+
+### Tablas
+Estructura:
+```
+| Columna 1 | Columna 2 |
+|-----------|-----------|
+| Celda 1,1 | Celda 1,2 |
+| Celda 2,1 | Celda 2,2 |
+```
+Visualización:
+
+| Columna 1 | Columna 2 |
+|-----------|-----------|
+| Celda 1,1 | Celda 1,2 |
+| Celda 2,1 | Celda 2,2 |
+
+**Librerías para tablas**
+
+`kableExtra` es una extensión del paquete `knitr` que proporciona una serie de herramientas adicionales para personalizar y mejorar las tablas generadas en R Markdown. Con `kableExtra`, puedes agregar características como celdas combinadas, notas al pie, resaltado de filas y columnas, formato de celdas, y mucho más.
+
+Nota: para poder utilizar el formato latex y por tanto generar visualización en pdf es necesario instalar `TinyTEX`.
+```{r}
+library(knitr)
+library(kableExtra)
+library(tinytex)
+
+# Data frame de ejemplo
+data <- data.frame(
+  Nombre = c("Columna 1", "Columna 2"),
+  Fila = c("Celda 1,1", "Celda 1,2"),
+  Fila2 = c("Celda 2,1", "Celda 2,2")
+)
+
+# Visualización con kable
+
+# Generar una tabla HTML a partir del objeto data
+data %>%
+    kable(format = "html", escape = FALSE) %>%
+  # "latex" para generar en pdf
+    # Cuidado! el color lightblue no lo detecta
+  
+  # Estilizar la tabla con opciones de bootstrap
+    kable_styling(full_width = FALSE, position = "center", bootstrap_options = c("striped", "hover")) %>%
+  
+  # Agregar un encabezado combinado sobre todas las columnas
+  add_header_above(c(" " = 1, "Ejemplo formato tabla" = 2)) %>%
+  
+  # Agregar una nota al pie de la tabla
+  add_footnote("Nota: Agregar Nota al Pie.") %>%
+  
+  # Especificar el ancho de las columnas
+  column_spec(1:3, width = "100px") %>% #ancho de las columnas
+  
+  # Aplicar formato a las celdas de la primera columna (cursiva)
+  column_spec(1, italic = TRUE) %>%
+  
+  # Aplicar formato a las celdas de las columnas 2 y 3 (negrita)
+  column_spec(2:3, bold = TRUE) %>%
+  
+  # Cambiar el color de fondo de la columna 2
+  column_spec(2, background = "lightblue") %>%
+  
+  # Cambiar el color del texto en la fila 2
+row_spec(2, color = "blue")
+
+```
+### Estilos
+
+#### Estilo de Bloque
+Estilo de Bloque
+```
+> Este es un bloque de estilo
+```
+Citas
+```
+> "Esto es una cita"
+```
+División de páginas
+```
+\newpage
+```
+
+### Ecuaciones de Latex
+
+Estructura:
+```
+$E = mc^{2}$
+$\frac{T_{máxima diaria} + T_{mínima diaria}}{2} - T_{base}$
+```
+Visualización:
+
+$E = mc^{2}$
+
+$\frac{T_{máxima diaria} + T_{mínima diaria}}{2} - T_{base}$
+
+```{r}
+
+```
+
+
+Para más información: <https://bookdown.org/yihui/rmarkdown/>
